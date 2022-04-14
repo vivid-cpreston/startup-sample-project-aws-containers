@@ -1,8 +1,18 @@
 #!/bin/bash
 
+DOCKER_SYSPATH="/usr/bin/docker"
+
 testcmd () {
     command -v "$1" > /dev/null
 }
+
+
+echo "Checking for Docker executable at path: "$DOCKER_SYSPATH"."
+if [ ! "$DOCKER_SYSPATH" ]
+then
+    echo "Docker installation not found. Please install Docker and try again."
+    exit
+fi
 
 echo "Installing local development tools..."
 
@@ -15,7 +25,24 @@ else
         echo "https://code.visualstudio.com/download"
         exit 1
     fi
-    sudo snap install vscode --classic
+    echo "Attempting to install VSCode using snap"
+    sudo snap install code --classic
+fi
+
+echo "Attempting to install recommended VSCode extensions."
+if testcmd code;
+then
+    echo "VS Code found. Installing recomneded extensions"
+    cat .config/extensions.txt | xargs -L 1 code --install-extension;
+    # devcontainer open
+fi
+
+echo "Attempting to launch VSCode."
+if testcmd code;
+then
+    echo "VS Code found. Launching"
+    "code" --new-window $PWD --verbose;
+    # devcontainer open
 fi
 
 # # Copy vscode config from the repo

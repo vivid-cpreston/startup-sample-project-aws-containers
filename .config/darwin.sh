@@ -33,6 +33,13 @@ then
     # brew install visual-studio-code
 fi
 
+echo "Attempting to install recommended VSCode extensions."
+if [ -d "$VSCODE_SYSPATH" ]
+then
+    echo "VS Code found. Installing recomneded extensions"
+    cat .config/extensions.txt | xargs -L 1 "$VSCODE_SYSPATH/code" --install-extension;
+fi
+
 echo "Attempting to launch VSCode."
 if [ -d "$VSCODE_SYSPATH" ]
 then

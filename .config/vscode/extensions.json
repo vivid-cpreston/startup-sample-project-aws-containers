@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "hashicorp.terraform",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-ssh-edit",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.vscode-typescript-tslint-plugin"
+    ]
+}
