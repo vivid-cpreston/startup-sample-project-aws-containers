@@ -5,8 +5,8 @@ UNAME := $(shell uname)
 local-setup:
 	@echo "+\n++ Make: Installing system dependencies...\n+"
 ifeq ($(UNAME), Linux)
-	@.config/linux.sh
+	@sh .config/linux.sh
 endif
 ifeq ($(UNAME), Darwin)
-	@.config/darwin.sh
+	@sh .config/darwin.sh
 endif

@@ -6,7 +6,6 @@ testcmd () {
     command -v "$1" > /dev/null
 }
 
-
 echo "Checking for Docker executable at path: "$DOCKER_SYSPATH"."
 if [ ! "$DOCKER_SYSPATH" ]
 then
@@ -14,7 +13,7 @@ then
     exit
 fi
 
-echo "Installing local development tools..."
+echo "+\n++ Installing local development tools...\n+"
 
 if testcmd code; then
     echo "VS Code is already installed."
@@ -25,25 +24,27 @@ else
         echo "https://code.visualstudio.com/download"
         exit 1
     fi
-    echo "Attempting to install VSCode using snap"
+    echo "+\n++ Attempting to install VSCode using snap...\n+"
     sudo snap install code --classic
 fi
 
-echo "Attempting to install recommended VSCode extensions."
+echo "+\n++ Attempting to install recommended VSCode extensions...\n+"
 if testcmd code;
 then
-    echo "VS Code found. Installing recomneded extensions"
+    echo "+\n++ VS Code found. Installing recomneded extensions...\n+"
     cat .config/extensions.txt | xargs -L 1 code --install-extension;
-    # devcontainer open
 fi
 
-echo "Attempting to launch VSCode."
+echo "+\n++ Attempting to install @vscode/dev-container-cli...\n+"
 if testcmd code;
 then
-    echo "VS Code found. Launching"
-    "code" --new-window $PWD --verbose;
-    # devcontainer open
+    echo "+\n++ VS Code found. Installing @vscode/dev-container-cli...\n+"
+    npm install @vscode/dev-container-cli
 fi
 
-# # Copy vscode config from the repo
-# [[ -d .vscode ]] || cp -a .config/vscode .vscode
+echo "+\n++ Attempting to launch VSCode...\n+"
+if testcmd code;
+then
+    echo "+\n++ VS Code found. Launching...\n+"
+    devcontainer open
+fi
