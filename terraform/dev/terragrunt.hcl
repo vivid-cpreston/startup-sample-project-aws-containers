@@ -9,7 +9,7 @@ include {
 locals {
   project = get_env("LICENSE_PLATE")
 }
-
+#test comment
 generate "dev_tfvars" {
   path              = "dev.auto.tfvars"
   if_exists         = "overwrite"
