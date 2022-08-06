@@ -41,4 +41,4 @@ jobs:
         env:
           app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_sha }}
           LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
-        run: terragrunt run-all apply --terragrunt-non-interactive
+        run: terragrunt run-all apply --terragrunt-non-interactive --terragrunt-include-external-dependencies
